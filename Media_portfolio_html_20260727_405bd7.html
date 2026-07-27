@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Name | Photographer & Videographer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img, video {
+      max-width: 100%;
+      display: block;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ----- BUTTONS ----- */
+    .btn {
+      display: inline-block;
+      padding: 10px 28px;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+      text-align: center;
+    }
+    .btn:hover {
+      background: #333;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #1a1a1a;
+      border: 1.5px solid #1a1a1a;
+    }
+    .btn-outline:hover {
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .btn-back {
+      margin-bottom: 24px;
+    }
+
+    /* ----- HERO / HEADER ----- */
+    .hero {
+      padding: 60px 0 40px;
+      text-align: center;
+      border-bottom: 1px solid #eaeaea;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .hero .tagline {
+      font-size: 1.2rem;
+      color: #666;
+      margin-top: 6px;
+    }
+    .hero .nav-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .hero .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #444;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+      transition: 0.2s;
+    }
+    .hero .nav-links a:hover {
+      border-bottom-color: #1a1a1a;
+      color: #000;
+    }
+    .hero .resume-btn {
+      margin-top: 24px;
+    }
+
+    /* ----- SECTION TITLES ----- */
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    /* ----- ALBUM GRID (Main Gallery) ----- */
+    .album-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .album-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+    .album-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    }
+    .album-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: #ddd;
+    }
+    .album-card .album-info {
+      padding: 20px 16px 24px;
+    }
+    .album-card .album-info h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .album-card .album-info p {
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 4px;
+    }
+    .album-card .album-info .photo-count {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #999;
+      background: #f5f5f5;
+      padding: 4px 14px;
+      border-radius: 20px;
+    }
+
+    /* ----- PHOTO GRID (Inside Album) ----- */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .photo-grid img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #ddd;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+    .photo-grid img:hover {
+      transform: scale(1.02);
+    }
+
+    /* ----- VIDEO SECTION ----- */
+    .video-section {
+      padding: 60px 0;
+      background: #fff;
+      border-top: 1px solid #eaeaea;
+      border-bottom: 1px solid #eaeaea;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+    .video-item {
+      background: #f5f5f5;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .video-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.10);
+    }
+    .video-item .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+    .video-item .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .video-item .caption {
+      padding: 16px 18px 20px;
+      background: #fff;
+    }
+    .video-item .caption h3 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .video-item .caption p {
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 4px;
+    }
+
+    /* ----- SERVICES ----- */
+    .services {
+      padding: 60px 0;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+      text-align: center;
+    }
+    .service-card {
+      background: #fff;
+      padding: 32px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      border: 1px solid #eee;
+    }
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .service-card .icon {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    /* ----- ABOUT ----- */
+    .about {
+      padding: 60px 0;
+      background: #fff;
+      border-top: 1px solid #eaeaea;
+      border-bottom: 1px solid #eaeaea;
+    }
+    .about-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+      align-items: center;
+    }
+    .about-wrap .text {
+      flex: 2;
+      min-width: 280px;
+    }
+    .about-wrap .text h2 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .about-wrap .text p {
+      color: #444;
+      max-width: 600px;
+    }
+    .about-wrap .portrait {
+      flex: 1;
+      min-width: 160px;
+      text-align: center;
+    }
+    .about-wrap .portrait img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #ddd;
+      margin: 0 auto;
+    }
+
+    /* ----- CONTACT ----- */
+    .contact {
+      padding: 50px 0 60px;
+      text-align: center;
+    }
+    .contact h2 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .contact p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .contact .socials {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .contact .socials a {
+      font-weight: 500;
+      padding: 8px 20px;
+      border: 1px solid #ccc;
+      border-radius: 40px;
+      transition: 0.2s;
+    }
+    .contact .socials a:hover {
+      background: #1a1a1a;
+      color: #fff;
+      border-color: #1a1a1a;
+    }
+    .footer-bottom {
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+
+    /* ----- HIDDEN (Album View) ----- */
+    .album-view {
+      display: none;
+    }
+    .album-view.active {
+      display: block;
+    }
+    .gallery-home {
+      display: block;
+    }
+    .gallery-home.hidden {
+      display: none;
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero .nav-links { gap: 18px; }
+      .about-wrap { flex-direction: column-reverse; text-align: center; }
+      .about-wrap .text p { margin: 0 auto; }
+      .video-grid { grid-template-columns: 1fr; }
+      .photo-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+      .photo-grid img { height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== HERO / NAV ====== -->
+  <header class="hero">
+    <div class="container">
+      <h1>Your Name</h1>
+      <p class="tagline">Photographer &amp; Videographer</p>
+      <nav class="nav-links">
+        <a href="#" onclick="showHome()">Home</a>
+        <a href="#videos">Videos</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="resume-btn">
+        <a href="your-resume.pdf" class="btn" download>📄 Download Resume (PDF)</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== GALLERY ====== -->
+  <section id="gallery" class="gallery" style="padding:60px 0;">
+
+    <!-- ====== HOME VIEW (Album Grid) ====== -->
+    <div id="galleryHome" class="gallery-home">
+      <div class="container">
+        <h2 class="section-title">Photo Albums</h2>
+        <div class="album-grid">
+
+          <!-- ALBUM 1: Portraits -->
+          <div class="album-card" onclick="openAlbum('portraits')">
+            <img src="images/portraits/cover.jpg" alt="Portraits Album">
+            <div class="album-info">
+              <h3>📸 Portraits</h3>
+              <p>Editorial and lifestyle portraits</p>
+              <span class="photo-count">6 photos</span>
+            </div>
+          </div>
+
+          <!-- ALBUM 2: Products -->
+          <div class="album-card" onclick="openAlbum('products')">
+            <img src="images/products/cover.jpg" alt="Products Album">
+            <div class="album-info">
+              <h3>📦 Products</h3>
+              <p>E-commerce and product photography</p>
+              <span class="photo-count">6 photos</span>
+            </div>
+          </div>
+
+          <!-- ALBUM 3: Events -->
+          <div class="album-card" onclick="openAlbum('events')">
+            <img src="images/events/cover.jpg" alt="Events Album">
+            <div class="album-info">
+              <h3>🎉 Events</h3>
+              <p>Live events and corporate coverage</p>
+              <span class="photo-count">6 photos</span>
+            </div>
+          </div>
+
+          <!-- ALBUM 4: Lifestyle -->
+          <div class="album-card" onclick="openAlbum('lifestyle')">
+            <img src="images/lifestyle/cover.jpg" alt="Lifestyle Album">
+            <div class="album-info">
+              <h3>🌿 Lifestyle</h3>
+              <p>Natural light and everyday moments</p>
+              <span class="photo-count">6 photos</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== ALBUM VIEW (Hidden by default) ====== -->
+    <div id="albumView" class="album-view">
+      <div class="container">
+        <button class="btn btn-outline btn-back" onclick="closeAlbum()">← Back to Albums</button>
+        <h2 id="albumTitle" class="section-title" style="margin-top:-8px;">Album Name</h2>
+        <div id="albumPhotos" class="photo-grid">
+          <!-- Photos will be loaded here by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ====== VIDEO SECTION ====== -->
+  <section id="videos" class="video-section">
+    <div class="container">
+      <h2 class="section-title">Videography</h2>
+      <div class="video-grid">
+
+        <!-- Video 1: YouTube Embed -->
+        <div class="video-item">
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_1" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="caption">
+            <h3>Brand Promo Reel</h3>
+            <p>Social media campaign, 2025</p>
+          </div>
+        </div>
+
+        <!-- Video 2: YouTube Embed -->
+        <div class="video-item">
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="caption">
+            <h3>Event Highlight Reel</h3>
+            <p>Corporate event coverage, 2025</p>
+          </div>
+        </div>
+
+        <!-- Video 3: YouTube Embed -->
+        <div class="video-item">
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="caption">
+            <h3>Product Demo</h3>
+            <p>E-commerce video, 2024</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SERVICES ====== -->
+  <section id="services" class="services">
+    <div class="container">
+      <h2 class="section-title">Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="icon">📷</div>
+          <h3>Photography</h3>
+          <p>Portrait, product, lifestyle, and events</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">🎥</div>
+          <h3>Videography</h3>
+          <p>Reels, promos, event highlights, demos</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">✂️</div>
+          <h3>Editing</h3>
+          <p>Color grading, retouching, post-production</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">📦</div>
+          <h3>Content Packages</h3>
+          <p>Photos + videos bundled for brands</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ABOUT ====== -->
+  <section id="about" class="about">
+    <div class="container about-wrap">
+      <div class="text">
+        <h2>About Me</h2>
+        <p>
+          I'm a freelance photographer and videographer with experience since 2020.
+          I specialize in capturing authentic brand imagery, promotional videos, and
+          scroll-stopping social content. I handle everything myself—from planning
+          and shooting to editing and final delivery.
+        </p>
+        <p style="margin-top:12px;">
+          Whether you need product photos for your website or a dynamic Reel for
+          Instagram, I'm here to bring your vision to life with creativity,
+          professionalism, and fast turnaround.
+        </p>
+      </div>
+      <div class="portrait">
+        <img src="images/headshot.jpg" alt="Your Name">
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT ====== -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2>Let's Work Together</h2>
+      <p>Have a project in mind? Reach out anytime.</p>
+      <div class="socials">
+        <a href="mailto:your@email.com">📧 Email</a>
+        <a href="#" target="_blank">Instagram</a>
+        <a href="#" target="_blank">Behance</a>
+        <a href="#" target="_blank">LinkedIn</a>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Your Name — All rights reserved.
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== JAVASCRIPT ====== -->
+  <script>
+    // ----- ALBUM DATA -----
+    // Add your photos here. Each album is an array of image filenames.
+    const albums = {
+      portraits: {
+        title: "📸 Portraits",
+        photos: [
+          "portrait-1.jpg",
+          "portrait-2.jpg",
+          "portrait-3.jpg",
+          "portrait-4.jpg",
+          "portrait-5.jpg",
+          "portrait-6.jpg"
+        ]
+      },
+      products: {
+        title: "📦 Products",
+        photos: [
+          "product-1.jpg",
+          "product-2.jpg",
+          "product-3.jpg",
+          "product-4.jpg",
+          "product-5.jpg",
+          "product-6.jpg"
+        ]
+      },
+      events: {
+        title: "🎉 Events",
+        photos: [
+          "event-1.jpg",
+          "event-2.jpg",
+          "event-3.jpg",
+          "event-4.jpg",
+          "event-5.jpg",
+          "event-6.jpg"
+        ]
+      },
+      lifestyle: {
+        title: "🌿 Lifestyle",
+        photos: [
+          "lifestyle-1.jpg",
+          "lifestyle-2.jpg",
+          "lifestyle-3.jpg",
+          "lifestyle-4.jpg",
+          "lifestyle-5.jpg",
+          "lifestyle-6.jpg"
+        ]
+      }
+    };
+
+    // ----- FUNCTION: Open an Album -----
+    function openAlbum(albumName) {
+      const album = albums[albumName];
+      if (!album) return;
+
+      // Update title
+      document.getElementById('albumTitle').textContent = album.title;
+
+      // Generate photo grid
+      const grid = document.getElementById('albumPhotos');
+      grid.innerHTML = ''; // Clear previous photos
+
+      album.photos.forEach(function(photo) {
+        const img = document.createElement('img');
+        img.src = 'images/' + albumName + '/' + photo;
+        img.alt = album.title + ' photo';
+        img.loading = 'lazy';
+        grid.appendChild(img);
+      });
+
+      // Show album view, hide home view
+      document.getElementById('albumView').classList.add('active');
+      document.getElementById('galleryHome').classList.add('hidden');
+    }
+
+    // ----- FUNCTION: Close Album (Go Back) -----
+    function closeAlbum() {
+      document.getElementById('albumView').classList.remove('active');
+      document.getElementById('galleryHome').classList.remove('hidden');
+    }
+
+    // ----- FUNCTION: Show Home (From Nav) -----
+    function showHome() {
+      closeAlbum();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
