@@ -178,6 +178,93 @@
       transform: scale(1.02);
     }
 
+    /* ====== LIGHTBOX ====== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      cursor: pointer;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 95%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+      animation: fadeIn 0.3s ease;
+    }
+    .lightbox .close-btn {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: 300;
+      cursor: pointer;
+      transition: 0.2s;
+      line-height: 1;
+      background: none;
+      border: none;
+    }
+    .lightbox .close-btn:hover {
+      transform: scale(1.2);
+      color: #ccc;
+    }
+    .lightbox .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: 0.2s;
+      background: rgba(255,255,255,0.08);
+      border: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 300;
+    }
+    .lightbox .nav-btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .lightbox .prev-btn {
+      left: 20px;
+    }
+    .lightbox .next-btn {
+      right: 20px;
+    }
+    .lightbox .counter {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      background: rgba(0,0,0,0.4);
+      padding: 6px 18px;
+      border-radius: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     /* ----- VIDEO SECTION ----- */
     .video-section {
       padding: 60px 0;
@@ -360,6 +447,14 @@
       .video-grid { grid-template-columns: 1fr; }
       .photo-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
       .photo-grid img { height: 160px; }
+      .lightbox .nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.8rem;
+      }
+      .lightbox .prev-btn { left: 8px; }
+      .lightbox .next-btn { right: 8px; }
+      .lightbox .close-btn { top: 12px; right: 16px; font-size: 2rem; }
     }
   </style>
 </head>
@@ -480,7 +575,7 @@
         <!-- Video 3: YouTube Embed -->
         <div class="video-item">
           <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/9PTh-uKmdJ8"  referrerpolicy="strict-origin-when-cross-origin" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/9PTh-uKmdJ8" referrerpolicy="strict-origin-when-cross-origin" frameborder="0" allowfullscreen></iframe>
           </div>
           <div class="caption">
             <h3>Off The Beaten Path Art Exhibit</h3>
@@ -559,10 +654,18 @@
     </div>
   </section>
 
+  <!-- ====== LIGHTBOX ====== -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <button class="close-btn" onclick="closeLightbox()">×</button>
+    <button class="nav-btn prev-btn" onclick="event.stopPropagation(); navigateLightbox(-1)">‹</button>
+    <img id="lightboxImage" src="" alt="Enlarged view">
+    <button class="nav-btn next-btn" onclick="event.stopPropagation(); navigateLightbox(1)">›</button>
+    <div id="lightboxCounter" class="counter">1 / 1</div>
+  </div>
+
   <!-- ====== JAVASCRIPT ====== -->
   <script>
     // ----- ALBUM DATA -----
-    // Add your photos here. Each album is an array of image filenames.
     const albums = {
       portraits: {
         title: "📸 Portraits",
@@ -584,8 +687,7 @@
           "product2.jpg",
           "product3.jpg",
           "product4.jpg",
-          "product5.jpg",
-          
+          "product5.jpg"
         ]
       },
       events: {
@@ -612,23 +714,37 @@
       }
     };
 
+    // ----- LIGHTBOX VARIABLES -----
+    let currentAlbum = '';
+    let currentIndex = 0;
+    let currentPhotos = [];
+
     // ----- FUNCTION: Open an Album -----
     function openAlbum(albumName) {
       const album = albums[albumName];
       if (!album) return;
+
+      // Store current album for lightbox navigation
+      currentAlbum = albumName;
+      currentPhotos = album.photos;
 
       // Update title
       document.getElementById('albumTitle').textContent = album.title;
 
       // Generate photo grid
       const grid = document.getElementById('albumPhotos');
-      grid.innerHTML = ''; // Clear previous photos
+      grid.innerHTML = '';
 
-      album.photos.forEach(function(photo) {
+      album.photos.forEach(function(photo, index) {
         const img = document.createElement('img');
         img.src = 'images/' + albumName + '/' + photo;
         img.alt = album.title + ' photo';
         img.loading = 'lazy';
+        // Add click event to open lightbox
+        img.addEventListener('click', function(e) {
+          e.stopPropagation();
+          openLightbox(index);
+        });
         grid.appendChild(img);
       });
 
@@ -641,6 +757,8 @@
     function closeAlbum() {
       document.getElementById('albumView').classList.remove('active');
       document.getElementById('galleryHome').classList.remove('hidden');
+      // Close lightbox if open
+      closeLightbox();
     }
 
     // ----- FUNCTION: Show Home (From Nav) -----
@@ -648,6 +766,59 @@
       closeAlbum();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // ====== LIGHTBOX FUNCTIONS ======
+    function openLightbox(index) {
+      currentIndex = index;
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImage');
+      const counter = document.getElementById('lightboxCounter');
+
+      const photoPath = 'images/' + currentAlbum + '/' + currentPhotos[index];
+      img.src = photoPath;
+      img.alt = 'Enlarged photo ' + (index + 1);
+
+      // Update counter
+      counter.textContent = (index + 1) + ' / ' + currentPhotos.length;
+
+      // Show lightbox
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    function navigateLightbox(direction) {
+      const total = currentPhotos.length;
+      if (total === 0) return;
+
+      currentIndex = (currentIndex + direction + total) % total;
+      const img = document.getElementById('lightboxImage');
+      const counter = document.getElementById('lightboxCounter');
+
+      const photoPath = 'images/' + currentAlbum + '/' + currentPhotos[currentIndex];
+      img.src = photoPath;
+      img.alt = 'Enlarged photo ' + (currentIndex + 1);
+
+      counter.textContent = (currentIndex + 1) + ' / ' + total;
+    }
+
+    // ----- KEYBOARD NAVIGATION -----
+    document.addEventListener('keydown', function(e) {
+      const lightbox = document.getElementById('lightbox');
+      if (!lightbox.classList.contains('active')) return;
+
+      if (e.key === 'Escape') {
+        closeLightbox();
+      } else if (e.key === 'ArrowLeft') {
+        navigateLightbox(-1);
+      } else if (e.key === 'ArrowRight') {
+        navigateLightbox(1);
+      }
+    });
   </script>
 
 </body>
