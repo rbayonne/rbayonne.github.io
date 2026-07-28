@@ -6,7 +6,7 @@
   <title>Ryan Bayonne | Photographer & Videographer</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
   <style>
-    /* ----- RESET & BASE ----- */
+    /* ----- RESET & BASE (DARK THEME) ----- */
     * {
       margin: 0;
       padding: 0;
@@ -14,8 +14,8 @@
     }
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #fafafa;
-      color: #1a1a1a;
+      background-color: #0a0a0a;
+      color: #e0e0e0;
       line-height: 1.6;
     }
     a {
@@ -36,8 +36,8 @@
     .btn {
       display: inline-block;
       padding: 10px 28px;
-      background: #1a1a1a;
-      color: #fff;
+      background: #ffffff;
+      color: #0a0a0a;
       border: none;
       border-radius: 40px;
       font-weight: 500;
@@ -47,17 +47,17 @@
       text-align: center;
     }
     .btn:hover {
-      background: #333;
+      background: #cccccc;
       transform: translateY(-2px);
     }
     .btn-outline {
       background: transparent;
-      color: #1a1a1a;
-      border: 1.5px solid #1a1a1a;
+      color: #ffffff;
+      border: 1.5px solid #ffffff;
     }
     .btn-outline:hover {
-      background: #1a1a1a;
-      color: #fff;
+      background: #ffffff;
+      color: #0a0a0a;
     }
     .btn-back {
       margin-bottom: 24px;
@@ -67,16 +67,17 @@
     .hero {
       padding: 60px 0 40px;
       text-align: center;
-      border-bottom: 1px solid #eaeaea;
+      border-bottom: 1px solid #222222;
     }
     .hero h1 {
       font-size: 3rem;
       font-weight: 600;
       letter-spacing: -0.02em;
+      color: #ffffff;
     }
     .hero .tagline {
       font-size: 1.2rem;
-      color: #666;
+      color: #aaaaaa;
       margin-top: 6px;
     }
     .hero .nav-links {
@@ -89,14 +90,14 @@
     .hero .nav-links a {
       font-size: 0.95rem;
       font-weight: 500;
-      color: #444;
+      color: #bbbbbb;
       border-bottom: 2px solid transparent;
       padding-bottom: 4px;
       transition: 0.2s;
     }
     .hero .nav-links a:hover {
-      border-bottom-color: #1a1a1a;
-      color: #000;
+      border-bottom-color: #ffffff;
+      color: #ffffff;
     }
     .hero .resume-btn {
       margin-top: 24px;
@@ -108,6 +109,7 @@
       font-weight: 500;
       margin-bottom: 32px;
       text-align: center;
+      color: #ffffff;
     }
 
     /* ----- ALBUM GRID (Main Gallery) ----- */
@@ -118,23 +120,24 @@
       margin-bottom: 40px;
     }
     .album-card {
-      background: #fff;
+      background: #1a1a1a;
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
       text-align: center;
+      border: 1px solid #2a2a2a;
     }
     .album-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.8);
     }
     .album-card img {
       width: 100%;
       height: 220px;
       object-fit: cover;
-      background: #ddd;
+      background: #222;
     }
     .album-card .album-info {
       padding: 20px 16px 24px;
@@ -142,18 +145,19 @@
     .album-card .album-info h3 {
       font-size: 1.2rem;
       font-weight: 600;
+      color: #ffffff;
     }
     .album-card .album-info p {
       font-size: 0.9rem;
-      color: #777;
+      color: #999999;
       margin-top: 4px;
     }
     .album-card .album-info .photo-count {
       display: inline-block;
       margin-top: 8px;
       font-size: 0.8rem;
-      color: #999;
-      background: #f5f5f5;
+      color: #777777;
+      background: #2a2a2a;
       padding: 4px 14px;
       border-radius: 20px;
     }
@@ -170,12 +174,14 @@
       height: 220px;
       object-fit: cover;
       border-radius: 10px;
-      background: #ddd;
-      transition: transform 0.2s ease;
+      background: #222;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
+      border: 1px solid #2a2a2a;
     }
     .photo-grid img:hover {
       transform: scale(1.02);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
     }
 
     /* ====== LIGHTBOX ====== */
@@ -186,7 +192,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.92);
+      background: rgba(0, 0, 0, 0.95);
       z-index: 9999;
       justify-content: center;
       align-items: center;
@@ -201,14 +207,14 @@
       max-height: 90vh;
       object-fit: contain;
       border-radius: 8px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.8);
       animation: fadeIn 0.3s ease;
     }
     .lightbox .close-btn {
       position: absolute;
       top: 24px;
       right: 32px;
-      color: #fff;
+      color: #ffffff;
       font-size: 2.5rem;
       font-weight: 300;
       cursor: pointer;
@@ -219,13 +225,13 @@
     }
     .lightbox .close-btn:hover {
       transform: scale(1.2);
-      color: #ccc;
+      color: #cccccc;
     }
     .lightbox .nav-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      color: #fff;
+      color: #ffffff;
       font-size: 3rem;
       cursor: pointer;
       transition: 0.2s;
@@ -255,7 +261,7 @@
       transform: translateX(-50%);
       color: rgba(255,255,255,0.6);
       font-size: 0.9rem;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.6);
       padding: 6px 18px;
       border-radius: 20px;
     }
@@ -268,9 +274,9 @@
     /* ----- VIDEO SECTION ----- */
     .video-section {
       padding: 60px 0;
-      background: #fff;
-      border-top: 1px solid #eaeaea;
-      border-bottom: 1px solid #eaeaea;
+      background: #0a0a0a;
+      border-top: 1px solid #222222;
+      border-bottom: 1px solid #222222;
     }
     .video-grid {
       display: grid;
@@ -278,15 +284,16 @@
       gap: 30px;
     }
     .video-item {
-      background: #f5f5f5;
+      background: #1a1a1a;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid #2a2a2a;
     }
     .video-item:hover {
       transform: translateY(-6px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.10);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.6);
     }
     .video-item .video-wrapper {
       position: relative;
@@ -303,21 +310,23 @@
     }
     .video-item .caption {
       padding: 16px 18px 20px;
-      background: #fff;
+      background: #1a1a1a;
     }
     .video-item .caption h3 {
       font-size: 1rem;
       font-weight: 600;
+      color: #ffffff;
     }
     .video-item .caption p {
       font-size: 0.9rem;
-      color: #777;
+      color: #999999;
       margin-top: 4px;
     }
 
     /* ----- SERVICES ----- */
     .services {
       padding: 60px 0;
+      background: #0a0a0a;
     }
     .services-grid {
       display: grid;
@@ -326,20 +335,21 @@
       text-align: center;
     }
     .service-card {
-      background: #fff;
+      background: #1a1a1a;
       padding: 32px 20px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-      border: 1px solid #eee;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      border: 1px solid #2a2a2a;
     }
     .service-card h3 {
       font-size: 1.1rem;
       font-weight: 600;
       margin-bottom: 6px;
+      color: #ffffff;
     }
     .service-card p {
       font-size: 0.9rem;
-      color: #666;
+      color: #999999;
     }
     .service-card .icon {
       font-size: 2.2rem;
@@ -349,9 +359,9 @@
     /* ----- ABOUT ----- */
     .about {
       padding: 60px 0;
-      background: #fff;
-      border-top: 1px solid #eaeaea;
-      border-bottom: 1px solid #eaeaea;
+      background: #0a0a0a;
+      border-top: 1px solid #222222;
+      border-bottom: 1px solid #222222;
     }
     .about-wrap {
       display: flex;
@@ -367,9 +377,10 @@
       font-size: 1.8rem;
       font-weight: 500;
       margin-bottom: 16px;
+      color: #ffffff;
     }
     .about-wrap .text p {
-      color: #444;
+      color: #bbbbbb;
       max-width: 600px;
     }
     .about-wrap .portrait {
@@ -382,22 +393,25 @@
       height: 180px;
       border-radius: 50%;
       object-fit: cover;
-      background: #ddd;
+      background: #222;
       margin: 0 auto;
+      border: 2px solid #333;
     }
 
     /* ----- CONTACT ----- */
     .contact {
       padding: 50px 0 60px;
       text-align: center;
+      background: #0a0a0a;
     }
     .contact h2 {
       font-size: 1.8rem;
       font-weight: 500;
       margin-bottom: 12px;
+      color: #ffffff;
     }
     .contact p {
-      color: #666;
+      color: #aaaaaa;
       margin-bottom: 20px;
     }
     .contact .socials {
@@ -409,19 +423,20 @@
     .contact .socials a {
       font-weight: 500;
       padding: 8px 20px;
-      border: 1px solid #ccc;
+      border: 1px solid #444444;
       border-radius: 40px;
       transition: 0.2s;
+      color: #cccccc;
     }
     .contact .socials a:hover {
-      background: #1a1a1a;
-      color: #fff;
-      border-color: #1a1a1a;
+      background: #ffffff;
+      color: #0a0a0a;
+      border-color: #ffffff;
     }
     .footer-bottom {
       margin-top: 40px;
       font-size: 0.85rem;
-      color: #aaa;
+      color: #666666;
     }
 
     /* ----- HIDDEN (Album View) ----- */
